@@ -42,14 +42,14 @@ public class JspMealController extends AbstractMealController {
         LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
         LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
 
-        List<MealTo> mealsFiltered = getBetween(startDate, startTime, endDate, endTime);
+        List<MealTo> mealsFiltered = super.getBetween(startDate, startTime, endDate, endTime);
 
         model.addAttribute("meals", mealsFiltered);
     }
 
     @GetMapping("/delete")
     public String delete(HttpServletRequest request) {
-        delete(getId(request));
+        super.delete(getId(request));
 
         return "redirect:/meals";
     }
@@ -77,9 +77,9 @@ public class JspMealController extends AbstractMealController {
                 Integer.parseInt(request.getParameter("calories")));
 
         if (StringUtils.isEmpty(request.getParameter("id"))) {
-            create(meal);
+            super.create(meal);
         } else {
-            update(meal, getId(request));
+            super.update(meal, getId(request));
         }
 
         return "redirect:/meals";
