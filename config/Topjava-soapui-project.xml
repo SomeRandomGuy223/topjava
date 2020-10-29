@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="Topjava" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" id="b6a174fe-9cda-4410-af25-bdf04e1fed39" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="Topjava" resourceRoot="" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" id="b6a174fe-9cda-4410-af25-bdf04e1fed39" xmlns:con="http://eviware.com/soapui/config">
     <con:settings/>
     <con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest" id="eebe6f3c-c045-444a-ae8f-c0f4bbb345b5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <con:settings/>
@@ -360,7 +360,9 @@
                 </con:request>
             </con:method>
         </con:resource>
-    </con:interface>
+    <con:resource name="meals" path="/topjava/rest/meals/100002" id="b280b988-f927-4c1d-a81e-ef101b37e7a0"><con:settings/><con:parameters/></con:resource><con:resource name="meals" path="/topjava/rest/meals" id="215a87a9-8e0a-4e61-a342-b494d371c0a2"><con:settings/><con:parameters><con:parameter><con:name/><con:value/><con:style>QUERY</con:style><con:default/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="" id="1814e186-53e7-44e4-8bf4-eb74e31dc69a" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element>Response</con:element></con:representation><con:request name="UserMealsGetAll" id="930e9e46-2b66-4348-bb39-b23162b5a117" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://localhost/topjava/rest/meals</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="" value="" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry/></con:parameterOrder></con:request></con:method><con:method name="" id="066e1687-9633-4298-9039-4bdd97f5b8f7" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>400</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="UserCreatMeal" id="19b67ab3-40cd-4953-b698-292a2a7a9900" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{"dateTime": "2020-01-30 13:00:10",
+"description": "New",
+"calories": "250"}</con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder><con:entry/></con:parameterOrder></con:request></con:method></con:resource></con:interface>
     <con:properties/>
     <con:wssContainer/>
     <con:oAuth2ProfileContainer/>
