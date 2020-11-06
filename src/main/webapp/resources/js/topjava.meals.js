@@ -32,5 +32,18 @@ $(function () {
                 ]
             })
         }
-    );
+    )
 });
+
+
+function filter() {
+    $.ajax({
+        type: "GET",
+        url: "ajax/meals/filter",
+        data: $('#mealsFilter').serialize()
+    }).done(updateTableWithData);
+}
+
+function clearFilter() {
+    $("#mealsFilter")[0].reset();
+}
