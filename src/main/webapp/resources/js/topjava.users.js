@@ -40,3 +40,18 @@ $(function () {
         }
     );
 });
+
+function enable(chkbox, id) {
+    var enabled = $(chkbox).is(":checked");
+
+    $.ajax({
+        url: "admin/users/" + id,
+        type: "POST",
+        data: "enabled=" + enabled
+    }).done(function () {
+        $(chkbox).closest("tr").attr("data-userEnabled", enabled);
+        successNoty(enabled ? "common.enabled" : "common.disabled");
+    }).fail(function () {
+        $(chkbox).prop("checked", !enabled);
+    });
+}
