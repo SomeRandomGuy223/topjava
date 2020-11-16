@@ -46,6 +46,10 @@ public class UserTestData {
         return updated;
     }
 
+    public static User getInvalid(User user) {
+        return new User(user.getId(), "", user.getEmail(), user.getPassword(), 5, false, new Date(), user.getRoles());
+    }
+
     public static String jsonWithPassword(User user, String passw) {
         return JsonUtil.writeAdditionProps(user, "password", passw);
     }

@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.web.meal;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -9,6 +10,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.util.exception.ErrorInfo;
+import ru.javawebinar.topjava.util.exception.ErrorType;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
@@ -74,7 +77,8 @@ class MealRestControllerTest extends AbstractControllerTest {
     @Test
     void update() throws Exception {
         Meal updated = MealTestData.getUpdated();
-        perform(MockMvcRequestBuilders.put(REST_URL + MEAL1_ID).contentType(MediaType.APPLICATION_JSON)
+        perform(MockMvcRequestBuilders.put(REST_URL + MEAL1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated))
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isNoContent());
@@ -95,6 +99,36 @@ class MealRestControllerTest extends AbstractControllerTest {
         newMeal.setId(newId);
         MEAL_MATCHER.assertMatch(created, newMeal);
         MEAL_MATCHER.assertMatch(mealService.get(newId, USER_ID), newMeal);
+    }
+
+    @Test
+    void createInvalid() throws Exception {
+        Meal invalidMeal = MealTestData.getInvalid(getNew());
+
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalidMeal))
+                .with(userHttpBasic(USER)))
+                .andExpect(status().is4xxClientError());
+
+        ErrorInfo errorInfo = readFromJson(action, ErrorInfo.class);
+
+        Assertions.assertSame(errorInfo.getType(), ErrorType.VALIDATION_ERROR);
+    }
+
+    @Test
+    void updateInvalid() throws Exception {
+        Meal invalidMeal = MealTestData.getInvalid(getUpdated());
+
+        ResultActions action = perform(MockMvcRequestBuilders.put(REST_URL + invalidMeal.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalidMeal))
+                .with(userHttpBasic(USER)))
+                .andExpect(status().is4xxClientError());
+
+        ErrorInfo errorInfo = readFromJson(action, ErrorInfo.class);
+
+        Assertions.assertSame(errorInfo.getType(), ErrorType.VALIDATION_ERROR);
     }
 
     @Test
